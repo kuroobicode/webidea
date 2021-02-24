@@ -58,8 +58,22 @@
               </div>
             </div>
           
+            <div id="to_group_area" style="display:none;" >
+              <div> 
+                <label>
+                </label>
+                <select id="to_group" name="to_group" >
+                  <option value="1">group 1</option>
+                  <option value="2">group 2</option>
+                  <option value="3">group 3</option>
+                  <option value="4">group 4</option>
+                </select>  
+              </div>
+            </div>
+
             <div class="row justify-content-end">
-               <input type="button" id="btn_add" value="追加" style="display:block;" ></input>
+               <input type="button" id="btn_add" value="更新" style="display:block;" ></input>
+               <input type="button" id="btn_selectgroup" value="グループ選択" style="display:block;" ></input>
                <input type="button" id="btn_setgroup" value="グループ反映" style="display:none;" ></input>
                <input type="button" id="btn_setgroup_cancel" value="キャンセル" style="display:none;" ></input>
             </div>
@@ -95,24 +109,20 @@
        <script>
         $(function () {
           
-          // 追加ボタンを押したとき
-          $('#btn_add').click(function() {
-            console.log('clickした')
-            //$('#tolist_default').clone().appendTo('.tolist');
-            let obj = $('#tolist_default').clone();
-            //console.log(JSON.stringify(obj));
-            obj.css('visibility', 'visible');
-            obj.appendTo('#to_list_area');
-            //obj.appendTo("#btn_add");
+          // グループ選択ボタンを押したとき
+          $('#btn_selectgroup').click(function() {
+            console.log('clickした');
 
-            //$('#sid').clone().appendTo('#divid');
-            //$('#tolist_default').clone().appendTo('#divid');
+            $('#to_group_area').show();
+
+            //$('#btn_setgroup').show();
+
           });
         
           // 選択した時
           // グループ内容の表示、ボタンの変更、リスト反映
           //$('select[name=tolist]').change(function() {
-          $(document).on('change', 'select[name=tolist]', function(){
+          $(document).on('change', 'select[id=to_group]', function(){
 
             console.log('選択した' + $(this).text());
 
@@ -121,12 +131,39 @@
 
             // ボタンの変更
             $('#btn_add').hide();
+            $('#btn_selectgroup').hide();
             $('#btn_setgroup').show();
             $('#btn_setgroup_cancel').show();
 
 
           });
 
+
+          // グループ設定ボタンを押したとき
+          $('#btn_setgroup').click(function() {
+            
+            console.log('clickした')
+            
+            // グループの選択値を取得
+            let gtoupVal = $('#to_group').val();
+            console.log('gtoupVal=' + gtoupVal);
+
+            // 複数
+            
+            // select値を設定
+            for(let i=0; i<2; i++){
+              let obj = $('#tolist_default').clone();
+              obj.css('visibility', 'visible');
+              obj.appendTo('#to_list_area');
+
+              let selectObj = obj.children('select');
+              selectObj.val(gtoupVal);
+
+            }
+
+
+
+          });
 
         });
         </script>
