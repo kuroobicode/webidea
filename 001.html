@@ -45,7 +45,7 @@
             <div id="to_list_area">
               <div> 
                 <label>
-                  <span class="material-icons">
+                  <span class="material-icons" name="delete_icon">
                     remove_circle
                   </span>
                 </label>
@@ -75,13 +75,13 @@
                <input type="button" id="btn_add" value="更新" style="display:block;" ></input>
                <input type="button" id="btn_selectgroup" value="グループ選択" style="display:block;" ></input>
                <input type="button" id="btn_setgroup" value="グループ反映" style="display:none;" ></input>
-               <input type="button" id="btn_setgroup_cancel" value="キャンセル" style="display:none;" ></input>
+               <input type="button" id="btn_setgroup_cancel" value="終了" style="display:none;" ></input>
             </div>
 
 
             <div id="tolist_default" style="visibility: hidden"> 
               <label>
-                <span class="material-icons">
+                <span class="material-icons" name="delete_icon">
                   remove_circle
                 </span>
               </label>
@@ -135,7 +135,6 @@
             $('#btn_setgroup').show();
             $('#btn_setgroup_cancel').show();
 
-
           });
 
 
@@ -161,9 +160,34 @@
 
             }
 
+          });
 
+          // 終了ボタンを押したとき
+          $('#btn_setgroup_cancel').click(function() {
+            
+            console.log('clickした　btn_setgroup_cancel')
+            
+            $('#to_group_area').hide();
+
+            // ボタンの変更
+            $('#btn_add').show();
+            $('#btn_selectgroup').show();
+            $('#btn_setgroup').hide();
+            $('#btn_setgroup_cancel').hide();
 
           });
+
+
+          // 削除ボタンを押したとき
+          //$('span[name=delete_icon]').click(function() {
+          $(document).on('click', 'span[name=delete_icon]', function(){
+            
+            console.log('delete_icon')
+            
+            $(this).parent().parent().remove();
+
+          });
+          
 
         });
         </script>
